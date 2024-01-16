@@ -36,7 +36,49 @@ class AssignmentGame : public BaseGame {
   protected:
     int solve() override {
         //IMPLEMENT YOUR SEARCH ALGORITHM HERE
-        return SHIP_COUNT;
+    int hits = 0;
+
+        for (int i = 0; i < HEIGHT; i++) {
+
+            for (int j = 0; j < WIDTH; j++) {
+
+                if (this->board->guess(i, j) == ResponseType::HIT)
+                {
+                    hits += 1;
+                }
+
+                if (this->board->guess(i, j) == ResponseType::NEARMISS) {
+
+                    //straight
+                    if (this->board->guess(++i, j) == ResponseType::HIT ){
+                        hits += 1;
+                    }
+                    if (this->board->guess(i, ++j) == ResponseType::HIT ){
+                        hits += 1;
+                    }
+                    if (this->board->guess(--i, j) == ResponseType::HIT ){
+                        hits += 1;
+                    }
+                    if (this->board->guess(i, --j) == ResponseType::HIT ){
+                        hits += 1;
+                    }
+                    //diagonal
+                    if (this->board->guess(++i, ++j) == ResponseType::HIT ){
+                        hits += 1;
+                    }
+                    if (this->board->guess(--i, --j) == ResponseType::HIT ){
+                        hits += 1;
+                    }
+                    if (this->board->guess(--i, ++j) == ResponseType::HIT ){
+                        hits += 1;
+                    }
+                    if (this->board->guess(++i, --j) == ResponseType::HIT ){
+                        hits += 1;
+                    }
+                }
+            }
+            return SHIP_COUNT;
+        }
     }
 };
 
